@@ -1,10 +1,27 @@
 package bg.softuni.pathfinder.services.dto;
 
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Length;
+
 public class UserRegisterDTO {
+
+    @NotEmpty
+    @NotNull
     private String username;
+    @NotEmpty
+    @NotNull
+    @Size(min = 5)
     private String fullName;
+    @Email
+    @NotNull
+    @NotEmpty
     private String email;
+    @Min(0)
+    @Max(90)
     private int age;
+    @Size(min = 5)
+    @NotEmpty
+    @NotNull
     private String password;
     private String confirmPassword;
 
