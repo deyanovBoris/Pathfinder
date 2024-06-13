@@ -11,6 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private Integer age;
     @Column(nullable = false, unique = true)
     private String username;
@@ -22,7 +23,6 @@ public class User {
     private String email;
     @Enumerated(EnumType.STRING)
     private Level level;
-
     @ManyToMany
     private Set<Role> roles;
 
@@ -32,6 +32,14 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public void setId(long id) {

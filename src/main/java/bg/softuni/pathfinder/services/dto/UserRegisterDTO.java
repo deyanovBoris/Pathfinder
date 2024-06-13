@@ -1,5 +1,6 @@
 package bg.softuni.pathfinder.services.dto;
 
+import bg.softuni.pathfinder.models.Level;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -7,6 +8,7 @@ public class UserRegisterDTO {
 
     @NotEmpty
     @NotNull
+    @Size(min = 5, max = 20)
     private String username;
     @NotEmpty
     @NotNull
@@ -18,7 +20,9 @@ public class UserRegisterDTO {
     private String email;
     @Min(0)
     @Max(90)
-    private int age;
+    private Integer age;
+    @NotNull
+    private Level level;
     @Size(min = 5)
     @NotEmpty
     @NotNull
@@ -34,6 +38,14 @@ public class UserRegisterDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public String getFullName() {
@@ -52,11 +64,11 @@ public class UserRegisterDTO {
         this.email = email;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
