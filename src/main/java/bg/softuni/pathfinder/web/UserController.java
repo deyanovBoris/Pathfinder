@@ -23,6 +23,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ModelAttribute("userLoginDTO")
+    public UserLoginDTO userLoginDTO(){
+        return new UserLoginDTO();
+    }
+
     @ModelAttribute("userRegisterDTO")
     public UserRegisterDTO registerDTO(){
         return new UserRegisterDTO();
@@ -39,8 +44,29 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(Model model, UserLoginDTO userLoginDTO){
-        System.out.println();
+    public String login(Model model,
+                        @Valid UserLoginDTO userLoginDTO,
+                        BindingResult bindingResult,
+                        RedirectAttributes rAtt){
+
+        if (bindingResult.hasErrors()){
+            rAtt.addFlashAttribute("userLoginDTO", userLoginDTO);
+            rAtt.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.userLoginDTO",
+                    bindingResult
+            );
+            return "redirect:/users/login";
+        }
+
+        boolean successLogin = this.userService.loginUser(userLoginDTO);
+        if (!successLogin){
+            rAtt.addFlashAttribute("userLoginDTO", userLoginDTO);
+            rAtt.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.userLoginDTO",
+                    bindingResult
+            );
+            return "redirect:/users/login";
+        }
         return "redirect:/";
     }
 
@@ -70,12 +96,17 @@ public class UserController {
         return "redirect:/users/login";
     }
 
+    @PostMapping("/logout")
+    public String logout(){
+        this.userService.logoutUser();
+
+        return "redirect:/";
+    }
+
     @GetMapping("/profile")
     public String profile(Model model){
-        System.out.println();
+        model.addAttribute("userProfileDTO", this.userService.getProfileInfo());
 
         return "profile";
     }
-
-
 }

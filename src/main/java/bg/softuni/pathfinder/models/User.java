@@ -23,7 +23,7 @@ public class User {
     private String email;
     @Enumerated(EnumType.STRING)
     private Level level;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public User() {

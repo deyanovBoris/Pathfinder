@@ -1,5 +1,6 @@
 package bg.softuni.pathfinder.web;
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,4 +19,12 @@ public class HomeController {
 
         return "index";
     }
+
+    @GetMapping("/about")
+    public String about(Model model){
+        return "about";
+    }
+
+
+
 }

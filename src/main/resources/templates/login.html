@@ -24,6 +24,7 @@
         <div class="row g-3 align-items-center">
 
             <form
+                    th:object="${userLoginDTO}"
                     th:action="@{/users/login}"
                     th:method="post">
                 <div>
@@ -31,7 +32,9 @@
                         <label for="inputUsername" class="col-form-label ">Username</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text"
+                        <input th:field="*{username}"
+                               placeholder="Username"
+                               type="text"
                                name="username"
                                required minlength="4" maxlength="20"
                                id="inputUsername"
@@ -44,7 +47,9 @@
                         <label for="inputPassword" class="col-form-label ">Password</label>
                     </div>
                     <div class="col-auto">
-                        <input type="password"
+                        <input th:field="*{password}"
+                               placeholder="Password"
+                               type="password"
                                name="password"
                                required minlength="4" maxlength="20"
                                id="inputPassword" class="form-control"
